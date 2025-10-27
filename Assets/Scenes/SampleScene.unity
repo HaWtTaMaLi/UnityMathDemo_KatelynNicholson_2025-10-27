@@ -1839,6 +1839,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47c412ee712edd64799b38cedb01c642, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WoodChest: 450
+  BronzeChest: 250
+  SilverChest: 100
+  GoldChest: 50
+  PlatinumChest: 1
+  WoodChestCommon: 200
+  WoodChestUncommon: 50
+  WoodChestRare: 25
+  WoodChestEpic: 5
+  WoodChestLegendary: 1
+  BronzeChestCommon: 200
+  BronzeChestUncommon: 50
+  BronzeChestRare: 25
+  BronzeChestEpic: 5
+  BronzeChestLegendary: 1
+  SilverChestCommon: 50
+  SilverChestUncommon: 50
+  SilverChestRare: 25
+  SilverChestEpic: 5
+  SilverChestLegendary: 1
+  GoldChestCommon: 100
+  GoldChestUncommon: 25
+  GoldChestRare: 10
+  GoldChestEpic: 5
+  GoldChestLegendary: 1
+  PlatinumChestCommon: 10
+  PlatinumChestUncommon: 20
+  PlatinumChestRare: 25
+  PlatinumChestEpic: 10
+  PlatinumChestLegendary: 5
 --- !u!4 &795156917
 Transform:
   m_ObjectHideFlags: 0
@@ -2076,7 +2106,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 1025558368}
 --- !u!33 &1188798652
 MeshFilter:
   m_ObjectHideFlags: 10
