@@ -2006,6 +2006,17 @@ MonoBehaviour:
   PlatinumChestRare: 25
   PlatinumChestEpic: 10
   PlatinumChestLegendary: 5
+  woodChest: {fileID: 4554417260073023111, guid: 4209458b31873d2439ba3cfc302d5de4, type: 3}
+  bronzeChest: {fileID: 4195618303429599257, guid: a6639014f116b5d44a574583b74ce366, type: 3}
+  silverChest: {fileID: 69512108411810732, guid: ea004d12b6d879c47966b15a5d266cc4, type: 3}
+  goldChest: {fileID: 3176632022708660081, guid: 8e74d20d2c2526c4a8ebc80dea13529f, type: 3}
+  platinumChest: {fileID: 3242374335433291461, guid: 607e2905eeb14e347aae7fed6eaf9c0c, type: 3}
+  commonLoot: {fileID: 2158769435063938563, guid: 6cd7186f6c6c549498d58e02adf6c99a, type: 3}
+  uncommonLoot: {fileID: 9123946640342837165, guid: 1d41ebf176741c440bb830dcf0582610, type: 3}
+  rareLoot: {fileID: 6185212876007901054, guid: c6908e159e5c3f442a9fea5228078f63, type: 3}
+  epicLoot: {fileID: 2629975928243064100, guid: 58d9df0513205c24788f1afd1391b735, type: 3}
+  legendaryLoot: {fileID: 7558751619844848169, guid: 0c2d07ef226afc2479cbbfddb677f6c6, type: 3}
+  claimRewardButton: {fileID: 2029843283}
 --- !u!4 &795156917
 Transform:
   m_ObjectHideFlags: 0
@@ -3512,10 +3523,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.522377, g: 1, b: 0, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_HighlightedColor: {r: 0.7630411, g: 1, b: 0.504717, a: 1}
+    m_PressedColor: {r: 0.52156866, g: 1, b: 0, a: 1}
+    m_SelectedColor: {r: 0.76470596, g: 1, b: 0.5058824, a: 1}
+    m_DisabledColor: {r: 0.76470596, g: 1, b: 0.5058824, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
