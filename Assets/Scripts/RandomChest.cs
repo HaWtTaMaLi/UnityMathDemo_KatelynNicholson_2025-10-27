@@ -72,6 +72,10 @@ public class RandomChest : MonoBehaviour
 
     private void Start()
     {
+        //show cursor
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
         //hook up the button
         if (claimRewardButton != null)
         {
@@ -161,5 +165,10 @@ public class RandomChest : MonoBehaviour
         }
 
         return commonLoot;
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
