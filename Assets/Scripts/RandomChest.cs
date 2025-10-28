@@ -62,8 +62,11 @@ public class RandomChest : MonoBehaviour
     [Header("Claim Reward Button")]
     [SerializeField] private Button claimRewardButton;
 
+    [Header("Spawn Parent")]
+    [SerializeField] private Transform objectSim;
+
     private GameObject selectedChest;
-    private Vector3 spawnPosition = new Vector3(0, 0, -5);
+
     private GameObject currentChest;
     private GameObject currentLoot;
 
@@ -91,9 +94,19 @@ public class RandomChest : MonoBehaviour
         if (currentChest != null) Destroy(currentChest);
         if (currentLoot != null) Destroy(currentLoot);
 
-        //pick a random chest
-        int randomChest = Random.Range(0, 5);
-        switch (randomChest)
+        //select chest using weight
+        float totalChestWeight = WoodChest + BronzeChest + SilverChest + GoldChest + PlatinumChest;
+        float chestRoll = Random.Range(0f, totalChestWeight);
+        int chestIndex = 0;
+
+        if (chestRoll <= WoodChest) chestIndex = 0;
+        else if (chestRoll <= WoodChest + BronzeChest) chestIndex = 1;
+        else if (chestRoll <= WoodChest + BronzeChest + SilverChest) chestIndex = 2;
+        else if (chestRoll <= WoodChest + BronzeChest + SilverChest + GoldChest) chestIndex = 3;
+        else chestIndex = 4;
+
+        //assign selected chest
+        switch (chestIndex)
         {
             case 0: selectedChest = woodChest; break;
             case 1: selectedChest = bronzeChest; break;
@@ -103,78 +116,50 @@ public class RandomChest : MonoBehaviour
         }
 
         //spawn chest
-        Instantiate(selectedChest, Vector3.zero, Quaternion.identity);
+        currentChest = Instantiate(selectedChest, objectSim.position, selectedChest.transform.rotation);
 
-        //roll for loot based on that chests table
-        GameObject loot = GetLootForChest(randomChest);
+        GameObject loot = GetLootForChest(chestIndex);
+        Vector3 lootPosition = objectSim.position + new Vector3(0,2,0);
+        currentLoot = Instantiate(loot, lootPosition, loot.transform.rotation);
 
-        //spawn loot slightly above the chest
-        Vector3 lootPosition = spawnPosition + new Vector3(0, 1, -5);
-        Instantiate(loot, new Vector3(0,1,0), Quaternion.identity);
+        currentChest.transform.parent = objectSim;
+        currentLoot.transform.parent = objectSim;
 
-        Debug.Log($"Spawned {selectedChest.name} with loot: {loot.name}");
+
+        //console 
+        Debug.Log($"You opened {selectedChest.name}, and won {loot.name}!");
     }
     
     public GameObject GetLootForChest(int chestIndex)
     {
-        
-        float c = 0f;
-        float u = 0f;
-        float r = 0f;
-        float e = 0f; 
-        float l = 0f;
+        //create arrays for weights and loot
+        float[] weights = new float[5];
+        GameObject[] lootPrefabs = new GameObject[] {commonLoot, uncommonLoot, rareLoot, epicLoot, legendaryLoot};
 
+        //assign weights to chest types
         switch (chestIndex)
         {
-            case 0: 
-                c = WoodChestCommon; 
-                u = WoodChestUncommon; 
-                r = WoodChestRare; 
-                e = WoodChestEpic; 
-                l = WoodChestLegendary; 
-                break;
-            case 1:
-                c = BronzeChestCommon;
-                u = BronzeChestUncommon;
-                r = BronzeChestRare;
-                e = BronzeChestEpic;
-                l = BronzeChestLegendary;
-                break;
-            case 2:
-                c = SilverChestCommon;
-                u = SilverChestUncommon;
-                r = SilverChestRare;
-                e = SilverChestEpic;
-                l = SilverChestLegendary;
-                break;
-            case 3:
-                c = GoldChestCommon;
-                u = GoldChestUncommon;
-                r = GoldChestRare;
-                e = GoldChestEpic;
-                l = GoldChestLegendary;
-                break;
-            case 4:
-                c = PlatinumChestCommon;
-                u = PlatinumChestUncommon;
-                r = PlatinumChestRare;
-                e = PlatinumChestEpic;
-                l = PlatinumChestLegendary;
-                break;
-            default: c = u = r = e = l = 0f; break;        
+            case 0: weights = new float[] { WoodChestCommon, WoodChestUncommon, WoodChestRare, WoodChestEpic, WoodChestLegendary }; break;
+            case 1: weights = new float[] { BronzeChestCommon, BronzeChestUncommon, BronzeChestRare, BronzeChestEpic, BronzeChestLegendary }; break;
+            case 2: weights = new float[] { SilverChestCommon, SilverChestUncommon, SilverChestRare, SilverChestEpic, SilverChestLegendary }; break;
+            case 3: weights = new float[] { GoldChestCommon, GoldChestUncommon, GoldChestRare, GoldChestEpic, GoldChestLegendary }; break;
+            case 4: weights = new float[] { PlatinumChestCommon, PlatinumChestUncommon, PlatinumChestRare, PlatinumChestEpic, PlatinumChestLegendary }; break;
+            default: weights = new float[] { 0, 0, 0, 0, 0 }; break;
         }
 
-        float total = c + u + r + e + l;
-
-        //roll between 0 and total
+        //random selection
+        float total = 0f;
+        foreach (float w in weights) total += w;
         float roll = Random.Range(0f, total);
 
-        if (roll <= c) return commonLoot;
-        else if (roll <= c + u) return uncommonLoot;
-        else if (roll <= c + u + r) return rareLoot;
-        else if (roll <= c + u + r + e) return epicLoot;
-        else return legendaryLoot;
+        float cumulative = 0f;
+        for (int i = 0; i < weights.Length; i++)
+        {
+            cumulative += weights[i];
+            if (roll <= cumulative)
+                return lootPrefabs[i];
+        }
+
+        return commonLoot;
     }
-
-
 }
